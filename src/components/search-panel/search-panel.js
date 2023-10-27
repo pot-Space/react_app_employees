@@ -1,4 +1,4 @@
-
+import './search-panel.css'
 
 const SearchPanel = () => {
   return (
