@@ -10,12 +10,14 @@ const EmployeesAddForm = () => {
         <input
           type="text"
           className="form-control new-post-label"
-          placeholder="Как его зовут?" />
+          placeholder="Как его зовут?"
+        />
 
         <input
           type="number"
           className="form-control new-post-label"
-          placeholder="З/П в $?" />
+          placeholder="З/П в $?"
+        />
 
         <button
           type="submit"
