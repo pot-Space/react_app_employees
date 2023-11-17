@@ -16,10 +16,11 @@ class App extends Component {
       super(props);
       this.state = {
          data: [
-            { name: 'First N.', salary: 3000, increase: false, rise: false, id: 1 },
-            { name: 'Second A.', salary: 2000, increase: false, rise: false, id: 2 },
+            { name: 'First N.', salary: 900, increase: false, rise: false, id: 1 },
+            { name: 'Second A.', salary: 1000, increase: false, rise: false, id: 2 },
             { name: 'Third M.', salary: 5000, increase: false, rise: false, id: 3 }
-         ]
+         ],
+         term: ''
       };
       this.maxId = 4;
    }
@@ -64,9 +65,26 @@ class App extends Component {
       }))
    }
 
+   onUpdateSearch = (term) => {
+      // this.setState({ term: term }) полная запись присовения локальной term в глобальную
+      this.setState({ term }) // короткая запись
+   }
+
+   searchEmployees = (items, term) => {
+      if (term.length === 0) {
+         return items;
+      }
+
+      return items.filter(item => {
+         return item.name.indexOf(term) > -1;
+      });
+   }
+
    render() {
+      const { data, term } = this.state;
       const employees = this.state.data.length;
       const increased = this.state.data.filter(item => item.increase).length;
+      const visibleData = this.searchEmployees(data, term);
 
       return (
          <div className="app">
@@ -76,12 +94,12 @@ class App extends Component {
             />
 
             <div className="search-panel">
-               <SearchPanel />
+               <SearchPanel onUpdateSearch={this.onUpdateSearch} />
                <AppFilter />
             </div>
 
             <EmployeesList
-               data={this.state.data}
+               data={visibleData}
                onDelete={this.deleteItem}
                onToggleProp={this.onToggleProp} />
 
